@@ -7,3 +7,4 @@ scipy==1.14.1
 seaborn==0.13.2
 streamlit==1.37.1
 tslearn==0.6.3
+lvmlite==0.31.0
