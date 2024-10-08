@@ -29,9 +29,11 @@ def main():
     # launch prediction after click on the predict button
     if st.button("Predict"): 
         try:
-            fs1_arr = np.array([float(x) for x in fs1.split(",")][::10])
-            ps2_arr = np.array([float(x) for x in ps2.split(",")][::100])
-            arr = np.concatenate([fs1_arr, ps2_arr])
+            fs1_arr = np.array([float(x) for x in fs1.split(",")])
+            ps2_arr = np.array([float(x) for x in ps2.split(",")])
+            if len(fs1_arr) != 600 or len(ps2_arr) != 6000:
+                st.warning('Wrong length of input, may produce inaccurate prediction!', icon="⚠️")
+            arr = np.concatenate([fs1_arr[::10], ps2_arr[::100]])
             
             # predict
             clf_pred = clf.predict(arr)[0]
