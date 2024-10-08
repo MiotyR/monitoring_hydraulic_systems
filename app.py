@@ -1,16 +1,14 @@
 import numpy as np
 import streamlit as st 
 from tslearn.neighbors import KNeighborsTimeSeriesClassifier
+import pickle
 
 # load arrays
 x_train = np.load("x_train.npy")
 y_train = np.load("y_train.npy")
 
-# recreate model
-clf = KNeighborsTimeSeriesClassifier(n_neighbors=5, 
-                                     metric="dtw", 
-                                     weights="distance",
-                                     verbose=1)
+# load model
+clf = KNeighborsTimeSeriesClassifier.from_pickle("nn5_valve_model.pkl")
 clf.fit(x_train, y=y_train)
 
 # define labels
