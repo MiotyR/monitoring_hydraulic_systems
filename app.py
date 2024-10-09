@@ -8,7 +8,7 @@ x_train = np.load("x_train.npy")
 y_train = np.load("y_train.npy")
 
 # load model
-clf = KNeighborsTimeSeriesClassifier.from_pickle("nn5_valve_model.pkl")
+clf = KNeighborsTimeSeriesClassifier.from_pickle("nn3_valve_model.pkl")
 clf.fit(x_train, y=y_train)
 
 # define labels
@@ -34,6 +34,7 @@ def main():
             if len(fs1_arr) != 600 or len(ps2_arr) != 6000:
                 st.warning('Wrong input size, may produce inaccurate prediction!', icon="⚠️")
             arr = np.concatenate([fs1_arr[::10], ps2_arr[::100]])
+            arr = (arr - np.mean(arr))/np.std(arr)
             
             # predict
             clf_pred = clf.predict(arr)[0]
