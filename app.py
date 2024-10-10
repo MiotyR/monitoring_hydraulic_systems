@@ -12,7 +12,10 @@ clf = KNeighborsTimeSeriesClassifier.from_pickle("nn3_valve_model.pkl")
 clf.fit(x_train, y=y_train)
 
 # define labels
-labels = {0: 73, 1: 80, 2: 90, 3: 100}
+labels = {0: "not optimal (73%)", 
+          1: "not optimal (80%)", 
+          2: "not optimal (90%)", 
+          3: "optimal (100%)"}
   
 def main(): 
     st.title("Valve Condition Predictor")
@@ -40,7 +43,7 @@ def main():
             clf_pred = clf.predict(arr)[0]
             valve_value = labels[clf_pred]
 
-            st.success(f'The valve condition for this cycle is {valve_value}')
+            st.success(f'The predicted valve condition for this cycle is {valve_value}.')
             
         except:
             st.error("Wrong input format\n", icon="🚨")        
